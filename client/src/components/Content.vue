@@ -1,6 +1,5 @@
 
 <script setup lang="ts">import { ref, reactive, onMounted } from "vue"
-import '@fortawesome/fontawesome-free'
 
 type task = {
     title: string
