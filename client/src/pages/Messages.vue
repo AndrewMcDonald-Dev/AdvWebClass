@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import Content from '../components/Content.vue';
 </script>
 
 <template>
-    <h1 class="title">Praying for Ukraine</h1>
+    <Content />
 </template>
 
 <style>

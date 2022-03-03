@@ -6,11 +6,8 @@ import Content from './components/Content.vue';
 <template>
   <Nav />
   <div class="container">
-    <section class="section">
-      <h1 class="title">Praying for Ukraine</h1>
-    </section>
+    <router-view />
   </div>
-  <Content />
 </template>
 
 <style>

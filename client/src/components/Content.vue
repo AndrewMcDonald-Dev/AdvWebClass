@@ -1,7 +1,8 @@
 
 <script setup lang="ts">import { ref, reactive, onMounted } from "vue"
+import '@fortawesome/fontawesome-free'
 
-interface task {
+type task = {
     title: string
     isCompleted: boolean
 }
