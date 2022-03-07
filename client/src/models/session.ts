@@ -13,7 +13,7 @@ export const Login = async (handle: string, password: string) => {
     if (user.password !== password) throw new Error("Incorrect Password");
 
     session.user = user;
-    router.push("/messages");
+    router.push("/wall");
 };
 
 export const Logout = () => {

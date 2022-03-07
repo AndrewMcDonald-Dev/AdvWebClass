@@ -1,7 +1,7 @@
-
 <script setup lang="ts">import { ref, reactive, onMounted } from "vue"
+import Messages from '../components/Messages.vue'
 
-type task = {
+export type task = {
     title: string
     isCompleted: boolean
 }
@@ -137,15 +137,7 @@ const displayedTasks = (): task[] => {
                                 </div>
                             </form>
                         </div>
-                        <a
-                            class="panel-block"
-                            v-for="task in displayedTasks()"
-                            :key="task.title"
-                            :class="{ 'is-completed': currentTab != 'Completed' && task.isCompleted }"
-                        >
-                            <input type="checkbox" v-model="task.isCompleted" />
-                            {{ task.title }}
-                        </a>
+                        <Messages />
                     </article>
                 </div>
                 <div class="column is-3">
