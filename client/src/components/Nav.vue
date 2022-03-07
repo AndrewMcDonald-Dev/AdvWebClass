@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import LoginBadge from './LoginBadge.vue';
 
 
 const isOpen = ref(false)
@@ -42,12 +43,7 @@ const isOpen = ref(false)
                 </div>
                 <div class="navbar-end">
                     <div class="navbar-item">
-                        <div class="buttons">
-                            <router-link class="button is-primary" to="/signup">
-                                <strong>Sign up</strong>
-                            </router-link>
-                            <router-link class="button is-light" to="/login">Log in</router-link>
-                        </div>
+                        <LoginBadge></LoginBadge>
                     </div>
                 </div>
             </div>
