@@ -1,0 +1,23 @@
+http://localhost:5000/
+
+###
+
+get http://localhost:5000/api/users/
+
+###
+
+get http://localhost:5000/api/users/3
+
+###
+
+post http://localhost:5000/api/users
+Content-Type: application/json
+
+{
+  "firstName": "Java",
+  "lastName": "Script",
+  "email": "is@email.com",
+  "handle": "awesome",
+  "password": "qwerty",
+  "pic": "someurl"
+}

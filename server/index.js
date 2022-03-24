@@ -3,7 +3,8 @@ const usersController = require("./controllers/users");
 
 const app = express();
 const port = 5000;
-app.use("/", express.static(__dirname + "public"))
+app.use("/", express.static(__dirname + "/public/"))
+    .use(express.json())
     .get("/api", (req, res) => {
         res.send("Hello world!");
     })

@@ -27,9 +27,18 @@ const list = [
         pic: "someurl",
     },
 ];
+const highestId = Math.max(list.map((user) => user.id));
 
 const get = (id) => {
     return list.find((user) => user.id === parseInt(id));
+};
+
+module.exports = {
+    create(user) {
+        user.id = ++highestId;
+        list.push(user);
+        return user;
+    },
 };
 
 module.exports.list = list;
