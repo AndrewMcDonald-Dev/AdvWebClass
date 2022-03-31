@@ -21,3 +21,18 @@ Content-Type: application/json
   "password": "qwerty",
   "pic": "someurl"
 }
+
+###
+
+delete http://localhost:5000/api/users/3
+
+###
+
+patch http://localhost:5000/api/users/3
+Content-Type: application/json
+
+{
+  "firstName": "Coffee",
+  "lastName": "Script"
+}
+

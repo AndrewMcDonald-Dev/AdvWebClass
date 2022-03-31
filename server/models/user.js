@@ -27,19 +27,34 @@ const list = [
         pic: "someurl",
     },
 ];
-const highestId = Math.max(list.map((user) => user.id));
+let highestId = 3;
 
-const get = (id) => {
-    return list.find((user) => user.id === parseInt(id));
+const get = (id) => ({
+    ...list.find((user) => user.id === parseInt(id)),
+    password: undefined,
+});
+
+const remove = (id) => {
+    const index = list.findIndex((user) => user.id === parseInt(id));
+    return { ...list.splice(index, 1)[0], password: undefined };
+};
+const update = (id, user) => {
+    const index = list.findIndex((user) => user.id === parseInt(id));
+    const newUser = Object.assign(list[index], user);
+    return { ...newUser, password: undefined };
 };
 
 module.exports = {
     create(user) {
         user.id = ++highestId;
         list.push(user);
-        return user;
+        return { ...user, password: undefined };
+    },
+    remove,
+    update,
+    get list() {
+        return list.map((user) => ({ ...user, password: undefined }));
     },
 };
 
-module.exports.list = list;
 module.exports.get = get;
