@@ -11,9 +11,12 @@ app.get("/", (req, res) => {
         res.send(user);
     })
     .post("/", (req, res) => {
-        userModel.create(req.body).then((user) => {
-            res.status(StatusCodes.CREATED).send(user);
-        });
+        userModel
+            .create(req.body)
+            .then((user) => {
+                res.status(StatusCodes.CREATED).send(user);
+            })
+            .catch(next);
     })
     .delete("/:id", (req, res) => {
         const user = userModel.remove(req.params.id);
