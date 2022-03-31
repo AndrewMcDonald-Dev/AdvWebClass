@@ -11,8 +11,9 @@ app.get("/", (req, res) => {
         res.send(user);
     })
     .post("/", (req, res) => {
-        const user = userModel.create(req.body);
-        res.status(StatusCodes.CREATED).send(user);
+        userModel.create(req.body).then((user) => {
+            res.status(StatusCodes.CREATED).send(user);
+        });
     })
     .delete("/:id", (req, res) => {
         const user = userModel.remove(req.params.id);

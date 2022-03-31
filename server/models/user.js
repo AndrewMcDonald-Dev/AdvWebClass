@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 const list = [
     {
         firstName: "Andrew",
@@ -45,8 +47,14 @@ const update = (id, user) => {
 };
 
 module.exports = {
-    create(user) {
+    async create(user) {
         user.id = ++highestId;
+
+        user.password = await bcrypt.hash(
+            user.password,
+            +process.env.SALT_ROUNDS
+        );
+
         list.push(user);
         return { ...user, password: undefined };
     },
