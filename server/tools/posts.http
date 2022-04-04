@@ -1,0 +1,40 @@
+
+http://localhost:3000/
+
+###
+
+get http://localhost:3000/api/posts/
+Authorization: bearer [token]
+
+###
+
+get http://localhost:3000/api/posts/1
+
+###
+
+post http://localhost:3000/api/posts
+Content-Type: application/json
+
+{
+  "firstName": "Java",
+  "lastName": "Script",
+  "email": "is@email.com",
+  "handle": "awesome",
+  "password": "qwerty",
+  "pic": "someurl"
+}
+
+###
+
+delete http://localhost:3000/api/posts/3
+
+###
+
+patch http://localhost:3000/api/posts/3
+Content-Type: application/json
+
+{
+  "firstName": "Coffee",
+  "lastName": "Script"
+}
+
