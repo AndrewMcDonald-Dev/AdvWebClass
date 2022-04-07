@@ -1,4 +1,5 @@
 const userModel = require("./user");
+const { StatusCodes } = require("http-status-codes");
 
 const list = [
     {
@@ -39,6 +40,8 @@ const includeUser = (post) => ({ ...post, user: userModel.get(post.owner) });
 
 const get = (id) => {
     const post = list.find((post) => post.id === parseInt(id));
+    if (!post)
+        throw { statusCode: StatusCodes.NOT_FOUND, message: "Post not found" };
     return includeUser(post);
 };
 
@@ -47,9 +50,10 @@ const remove = (id) => {
     const post = list.splice(index, 1)[0];
     return includeUser(post);
 };
-const update = (id, user) => {
+const update = (id, newPost) => {
     const index = list.findIndex((user) => user.id === parseInt(id));
-    const newPost = Object.assign(list[index], user);
+    const oldPost = list[index];
+    newPost = list[index] = Object.assign(oldPost, user);
     return includeUser(newPost);
 };
 
@@ -62,10 +66,7 @@ module.exports = {
     remove,
     update,
     get list() {
-        return list.map((post) => ({
-            ...post,
-            user: userModel.get(post.owner),
-        }));
+        return list.map((post) => includeUser(post));
     },
 };
 

@@ -6,7 +6,7 @@ get http://localhost:3000/api/users/
 
 ###
 
-get http://localhost:3000/api/users/3
+get http://localhost:3000/api/users/1
 
 ###
 
@@ -16,7 +16,7 @@ Content-Type: application/json
 {
   "firstName": "Java",
   "lastName": "Script",
-  "email": "is@email.com",
+  "email": "sample@email.com",
   "handle": "awesome",
   "password": "qwerty",
   "pic": "someurl"
@@ -41,7 +41,7 @@ post http://localhost:3000/api/users/login
 Content-Type: application/json
 
 {
-  "email": "simple@email.com",
+  "email": "sample@email.com",
   "password": "qwerty"
 }
 
