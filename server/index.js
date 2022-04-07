@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const StatusCodes = require("http-status-codes");
+const { StatusCodes } = require("http-status-codes");
 const usersController = require("./controllers/users");
 const postsController = require("./controllers/posts");
 const { requireAuth } = require("./models/auth");
@@ -21,9 +21,7 @@ app.use("/", express.static(__dirname + "/public/"))
                     next();
                 })
                 .catch(next);
-        } else {
-            next();
-        }
+        } else next();
     })
     .get("/api", (req, res) => {
         res.send("Hello world!");

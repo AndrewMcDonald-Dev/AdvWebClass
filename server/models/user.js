@@ -59,6 +59,7 @@ const login = async (email, password) => {
     const user = list.find((user) => user.email === email);
     if (!user)
         throw { stausCode: StatusCodes.NOT_FOUND, message: "User not found" };
+    console.log(password, user.password);
     if (!(await bcrypt.compare(password, user.password)))
         throw {
             statusCode: StatusCodes.UNAUTHORIZED,
@@ -89,6 +90,7 @@ module.exports = {
         );
 
         list.push(user);
+        console.log(list);
         return { ...user, password: undefined };
     },
     remove,

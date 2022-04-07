@@ -4,7 +4,6 @@ const app = express.Router();
 const { requireAuth } = require("../models/auth");
 const userModel = require("../models/user");
 const { StatusCodes } = require("http-status-codes");
-const { reset } = require("nodemon");
 
 app.get("/", requireAuth, (req, res) => {
     res.send(userModel.list);
@@ -13,7 +12,7 @@ app.get("/", requireAuth, (req, res) => {
         const user = userModel.get(req.params.id);
         res.send(user);
     })
-    .post("/", requireAuth, (req, res) => {
+    .post("/", (req, res, next) => {
         userModel
             .create(req.body)
             .then((user) => {
@@ -29,9 +28,9 @@ app.get("/", requireAuth, (req, res) => {
         const user = userModel.update(req.params.id, req.body);
         res.send({ succes: true, erros: [], data: user });
     })
-    .post("login", (req, res) => {
+    .post("/login", (req, res, next) => {
         userModel
-            .login(req.params.email, req.params.password)
+            .login(req.body.email, req.body.password)
             .then((user) => {
                 res.send(user);
             })
