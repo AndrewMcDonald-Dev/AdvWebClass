@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express.Router();
 const postModel = require("../models/post");
-const StatusCodes = require("http-status-codes");
+const { StatusCodes } = require("http-status-codes");
 
 app.get("/", (req, res) => {
     res.send(postModel.list);

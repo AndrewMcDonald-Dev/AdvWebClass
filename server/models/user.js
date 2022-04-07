@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const StatusCodes = require("http-status-codes");
+const { StatusCodes } = require("http-status-codes");
 
 const list = [
     {

@@ -3,7 +3,7 @@ const app = express.Router();
 
 const { requireAuth } = require("../models/auth");
 const userModel = require("../models/user");
-const StatusCodes = require("http-status-codes");
+const { StatusCodes } = require("http-status-codes");
 const { reset } = require("nodemon");
 
 app.get("/", requireAuth, (req, res) => {
