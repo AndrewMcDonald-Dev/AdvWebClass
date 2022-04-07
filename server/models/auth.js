@@ -1,4 +1,4 @@
-const StatusCodes = require("http-status-codes");
+const { StatusCodes } = require("http-status-codes");
 module.exports = {
     requireAuth: (req, res, next) => {
         if (!req.user)
