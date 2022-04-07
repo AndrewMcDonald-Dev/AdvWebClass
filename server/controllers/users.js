@@ -5,12 +5,21 @@ const { requireAuth } = require("../models/auth");
 const userModel = require("../models/user");
 const { StatusCodes } = require("http-status-codes");
 
-app.get("/", requireAuth, (req, res) => {
-    res.send(userModel.list);
+app.get("/", requireAuth, (req, res, next) => {
+    userModel
+        .getList()
+        .then((users) => {
+            res.status(StatusCodes.OK).send(users);
+        })
+        .catch(next);
 })
-    .get("/:id", (req, res) => {
-        const user = userModel.get(req.params.id);
-        res.send(user);
+    .get("/:id", (req, res, next) => {
+        userModel
+            .get(req.params.id)
+            .then((user) => {
+                res.status(StatusCodes.OK).send(user);
+            })
+            .catch(next);
     })
     .post("/", (req, res, next) => {
         userModel
@@ -20,9 +29,17 @@ app.get("/", requireAuth, (req, res) => {
             })
             .catch(next);
     })
-    .delete("/:id", requireAuth, (req, res) => {
-        const user = userModel.remove(req.params.id);
-        res.send({ succes: true, erros: [], data: user });
+    .delete("/:id", requireAuth, (req, res, next) => {
+        userModel
+            .remove(req.params.id)
+            .then((user) => {
+                res.status(StatusCodes.OK).send({
+                    success: true,
+                    errors: [],
+                    data: user,
+                });
+            })
+            .catch(next);
     })
     .patch("/:id", (req, res) => {
         const user = userModel.update(req.params.id, req.body);
@@ -33,6 +50,14 @@ app.get("/", requireAuth, (req, res) => {
             .login(req.body.email, req.body.password)
             .then((user) => {
                 res.send(user);
+            })
+            .catch(next);
+    })
+    .post("/seed", (req, res, next) => {
+        userModel
+            .seed()
+            .then((user) => {
+                res.send({ succes: true, erros: [], data: user.insertedIds });
             })
             .catch(next);
     });
