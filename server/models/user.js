@@ -1,6 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { StatusCodes } = require("http-status-codes");
+const { db, isConnected, ObjectId } = require("./mongo");
+
+const collection = db.db("myFirstDatabase").collection("users");
 
 const list = [
     {
@@ -33,14 +36,14 @@ const list = [
 ];
 let highestId = 3;
 
-const get = (id) => ({
-    ...list.find((user) => user.id === parseInt(id)),
-    password: undefined,
-});
+const get = async (id) => {
+    const user = await collection.findOne({ _id: new ObjectId(id) });
+    return { ...user, password: undefined };
+};
 
-const remove = (id) => {
-    const index = list.findIndex((user) => user.id === parseInt(id));
-    return { ...list.splice(index, 1)[0], password: undefined };
+const remove = async (id) => {
+    const user = await collection.findOneAndDelete({ _id: new ObjectId(id) });
+    return { ...user.value, password: undefined };
 };
 const update = async (id, user) => {
     const index = list.findIndex((user) => user.id === parseInt(id));
@@ -80,6 +83,10 @@ const fromToken = async (token) =>
         });
     });
 
+const seed = async () => {
+    return await collection.insertMany(list);
+};
+
 module.exports = {
     async create(user) {
         user.id = ++highestId;
@@ -96,9 +103,14 @@ module.exports = {
     remove,
     update,
     login,
+    collection,
+    seed,
     fromToken,
-    get list() {
-        return list.map((user) => ({ ...user, password: undefined }));
+    async getList() {
+        return (await collection.find().toArray()).map((user) => ({
+            ...user,
+            password: undefined,
+        }));
     },
 };
 

@@ -3,10 +3,11 @@ http://localhost:3000/
 ###
 
 get http://localhost:3000/api/users/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJKYXZhIiwibGFzdE5hbWUiOiJTY3JpcHQiLCJlbWFpbCI6InNhbXBsZUBlbWFpbC5jb20iLCJoYW5kbGUiOiJhd2Vzb21lIiwicGljIjoic29tZXVybCIsImlkIjo1LCJpYXQiOjE2NDkzNDY4ODB9.X1M8aWjzbPkuwwhf7_gYunIAF6tH6flfVRevOfkVHbE
 
 ###
 
-get http://localhost:3000/api/users/1
+get http://localhost:3000/api/users/624f35701e467344c9727e0d
 
 ###
 
@@ -45,3 +46,6 @@ Content-Type: application/json
   "password": "qwerty"
 }
 
+
+###
+post http://localhost:3000/api/users/seed
