@@ -30,9 +30,24 @@ app.use("/", express.static(__dirname + "/public/"))
     .use("/api/posts/", requireAuth, postsController)
     .use((err, req, res, next) => {
         console.error(err);
-        res.status(err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).send({
-            error: err.message ?? "Internal Server Error",
-        });
+        switch (err.code) {
+            case 11000:
+                res.status(StatusCodes.CONFLICT).send({
+                    success: false,
+                    errors: [
+                        {
+                            message: "Handle already in use",
+                        },
+                    ],
+                });
+                break;
+            default:
+                res.status(
+                    err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR
+                ).send({
+                    error: err.message ?? "Internal Server Error",
+                });
+        }
     });
 
 app.listen(port, () => {
