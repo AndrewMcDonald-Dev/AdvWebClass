@@ -11,8 +11,13 @@ get http://localhost:3000/api/users/624f35701e467344c9727e0d
 
 ###
 
+get http://localhost:3000/api/users//handle/kool
+
+###
+
 post http://localhost:3000/api/users
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJKYXZhIiwibGFzdE5hbWUiOiJTY3JpcHQiLCJlbWFpbCI6InNhbXBsZUBlbWFpbC5jb20iLCJoYW5kbGUiOiJhd2Vzb21lIiwicGljIjoic29tZXVybCIsImlkIjo1LCJpYXQiOjE2NDkzNDY4ODB9.X1M8aWjzbPkuwwhf7_gYunIAF6tH6flfVRevOfkVHbE
 
 {
   "firstName": "Java",
@@ -26,11 +31,13 @@ Content-Type: application/json
 ###
 
 delete http://localhost:3000/api/users/3
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJKYXZhIiwibGFzdE5hbWUiOiJTY3JpcHQiLCJlbWFpbCI6InNhbXBsZUBlbWFpbC5jb20iLCJoYW5kbGUiOiJhd2Vzb21lIiwicGljIjoic29tZXVybCIsImlkIjo1LCJpYXQiOjE2NDkzNDY4ODB9.X1M8aWjzbPkuwwhf7_gYunIAF6tH6flfVRevOfkVHbE
 
 ###
 
-patch http://localhost:3000/api/users/3
+patch http://localhost:3000/api/users/624f35701e467344c9727e0f
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJKYXZhIiwibGFzdE5hbWUiOiJTY3JpcHQiLCJlbWFpbCI6InNhbXBsZUBlbWFpbC5jb20iLCJoYW5kbGUiOiJhd2Vzb21lIiwicGljIjoic29tZXVybCIsImlkIjo1LCJpYXQiOjE2NDkzNDY4ODB9.X1M8aWjzbPkuwwhf7_gYunIAF6tH6flfVRevOfkVHbE
 
 {
   "firstName": "Coffee",
@@ -40,6 +47,7 @@ Content-Type: application/json
 ###
 post http://localhost:3000/api/users/login
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJKYXZhIiwibGFzdE5hbWUiOiJTY3JpcHQiLCJlbWFpbCI6InNhbXBsZUBlbWFpbC5jb20iLCJoYW5kbGUiOiJhd2Vzb21lIiwicGljIjoic29tZXVybCIsImlkIjo1LCJpYXQiOjE2NDkzNDY4ODB9.X1M8aWjzbPkuwwhf7_gYunIAF6tH6flfVRevOfkVHbE
 
 {
   "email": "sample@email.com",
@@ -49,3 +57,4 @@ Content-Type: application/json
 
 ###
 post http://localhost:3000/api/users/seed
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJKYXZhIiwibGFzdE5hbWUiOiJTY3JpcHQiLCJlbWFpbCI6InNhbXBsZUBlbWFpbC5jb20iLCJoYW5kbGUiOiJhd2Vzb21lIiwicGljIjoic29tZXVybCIsImlkIjo1LCJpYXQiOjE2NDkzNDY4ODB9.X1M8aWjzbPkuwwhf7_gYunIAF6tH6flfVRevOfkVHbE

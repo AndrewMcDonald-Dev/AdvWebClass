@@ -38,31 +38,41 @@ let highestId = 3;
 
 const get = async (id) => {
     const user = await collection.findOne({ _id: new ObjectId(id) });
+    if (!user)
+        throw { statusCode: StatusCodes.NOT_FOUND, message: "User not found" };
+    return { ...user, password: undefined };
+};
+const getByHandle = async (handle) => {
+    const user = await collection.findOne({ handle });
+    if (!user)
+        throw { statusCode: StatusCodes.NOT_FOUND, message: "User not found" };
     return { ...user, password: undefined };
 };
 
 const remove = async (id) => {
     const user = await collection.findOneAndDelete({ _id: new ObjectId(id) });
+    if (!user)
+        throw { statusCode: StatusCodes.NOT_FOUND, message: "User not found" };
     return { ...user.value, password: undefined };
 };
 const update = async (id, user) => {
-    const index = list.findIndex((user) => user.id === parseInt(id));
-    const oldUser = list[index];
-
     if (user.password) {
         user.password = await bcrypt.hash(user.password, 10);
     }
 
-    user = list[index] = { ...oldUser, ...user };
-
+    user = await collection.findOneAndUpdate(
+        { _id: new ObjectId(id) },
+        { $set: user },
+        { returnDocument: "after" }
+    );
     return { ...user, password: undefined };
 };
 
 const login = async (email, password) => {
-    const user = list.find((user) => user.email === email);
+    const user = await collection.findOne({ email });
     if (!user)
         throw { stausCode: StatusCodes.NOT_FOUND, message: "User not found" };
-    console.log(password, user.password);
+
     if (!(await bcrypt.compare(password, user.password)))
         throw {
             statusCode: StatusCodes.UNAUTHORIZED,
@@ -83,27 +93,32 @@ const fromToken = async (token) =>
         });
     });
 
-const seed = async () => {
-    return await collection.insertMany(list);
-};
+const seed = async () => await collection.insertMany(list);
 
 module.exports = {
     async create(user) {
         user.id = ++highestId;
+
+        if (!user.handle)
+            throw {
+                statusCode: StatusCodes.BAD_REQUEST,
+                message: "Handle is required",
+            };
 
         user.password = await bcrypt.hash(
             user.password,
             +process.env.SALT_ROUNDS
         );
 
-        list.push(user);
-        console.log(list);
-        return { ...user, password: undefined };
+        const result = await collection.insertOne(user);
+        user = await get(result.insertedId);
+        return { ...user };
     },
     remove,
     update,
     login,
     collection,
+    getByHandle,
     seed,
     fromToken,
     async getList() {

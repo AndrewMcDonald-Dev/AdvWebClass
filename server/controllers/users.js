@@ -13,6 +13,14 @@ app.get("/", requireAuth, (req, res, next) => {
         })
         .catch(next);
 })
+    .get("/handle/:handle", (req, res, next) => {
+        userModel
+            .getByHandle(req.params.handle)
+            .then((user) => {
+                res.status(StatusCodes.OK).send(user);
+            })
+            .catch(next);
+    })
     .get("/:id", (req, res, next) => {
         userModel
             .get(req.params.id)
@@ -41,9 +49,13 @@ app.get("/", requireAuth, (req, res, next) => {
             })
             .catch(next);
     })
-    .patch("/:id", (req, res) => {
-        const user = userModel.update(req.params.id, req.body);
-        res.send({ succes: true, erros: [], data: user });
+    .patch("/:id", (req, res, next) => {
+        userModel
+            .update(req.params.id, req.body)
+            .then((user) => {
+                res.send({ success: true, errors: [], data: user });
+            })
+            .catch(next);
     })
     .post("/login", (req, res, next) => {
         userModel
