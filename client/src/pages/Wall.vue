@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { api } from "../models/myFetch";
 import Messages from '../components/Messages.vue'
+
+// await api('users/handle/awesome', 'get').then(res => {
+//     console.log(res);
+
+// })
 
 const asideTab = ref('All')
 const changeAsideTab = (tab: string) => {
@@ -29,26 +35,14 @@ const changeAsideTab = (tab: string) => {
                             </p>
                         </div>
                         <p class="panel-tabs">
-                            <a
-                                :class="{ 'is-active': asideTab == 'All' }"
-                                @click="changeAsideTab('All')"
-                            >All</a>
-                            <a
-                                :class="{ 'is-active': asideTab == 'Public' }"
-                                @click="changeAsideTab('Public')"
-                            >Public</a>
-                            <a
-                                :class="{ 'is-active': asideTab == 'Private' }"
-                                @click="changeAsideTab('Private')"
-                            >Private</a>
-                            <a
-                                :class="{ 'is-active': asideTab == 'Sources' }"
-                                @click="changeAsideTab('Sources')"
-                            >Sources</a>
-                            <a
-                                :class="{ 'is-active': asideTab == 'Forks' }"
-                                @click="changeAsideTab('Forks')"
-                            >Forks</a>
+                            <a :class="{ 'is-active': asideTab == 'All' }" @click="changeAsideTab('All')">All</a>
+                            <a :class="{ 'is-active': asideTab == 'Public' }"
+                                @click="changeAsideTab('Public')">Public</a>
+                            <a :class="{ 'is-active': asideTab == 'Private' }"
+                                @click="changeAsideTab('Private')">Private</a>
+                            <a :class="{ 'is-active': asideTab == 'Sources' }"
+                                @click="changeAsideTab('Sources')">Sources</a>
+                            <a :class="{ 'is-active': asideTab == 'Forks' }" @click="changeAsideTab('Forks')">Forks</a>
                         </p>
                         <a class="panel-block is-active">
                             <span class="panel-icon">
@@ -91,9 +85,7 @@ const changeAsideTab = (tab: string) => {
                             remember me
                         </label>
                         <div class="panel-block">
-                            <button
-                                class="button is-link is-outlined is-fullwidth"
-                            >Reset all filters</button>
+                            <button class="button is-link is-outlined is-fullwidth">Reset all filters</button>
                         </div>
                     </nav>
                 </div>
