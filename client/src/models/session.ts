@@ -1,5 +1,5 @@
 import { reactive } from "vue";
-import { router } from "../router";
+import { router } from "../router/index";
 import { list, User } from "./user";
 
 const session = reactive({
@@ -18,6 +18,7 @@ export const Login = async (handle: string, password: string) => {
 
 export const Logout = () => {
     session.user = null;
+    router.push("/");
 };
 
 export default session;

@@ -3,6 +3,7 @@ import session from "../models/session";
 import Generic from "../pages/Generic.vue";
 import Home from "../pages/Home.vue";
 import Login from "../pages/Login.vue";
+import Signup from "../pages/Signup.vue";
 // import Messages from "../pages/Messages.vue";
 
 // 2. Define some routes
@@ -13,8 +14,10 @@ const routes: RouteRecordRaw[] = [
     { path: "/about", component: Generic, props: { title: "About Page" } },
     { path: "/contact", component: Generic, props: { title: "Contact Page" } },
     { path: "/login", component: Login },
-    { path: "/signup", component: Generic, props: { title: "Signup Page" } },
+    { path: "/signup", component: Signup },
     { path: "/wall", component: () => import("../pages/Wall.vue") },
+    { path: "/jobs", component: Generic, props: { title: "Jobs page" } },
+    { path: "/issue", component: Generic, props: { title: "Issue Page" } },
 ];
 
 // 3. Create the router instance and pass the `routes` option

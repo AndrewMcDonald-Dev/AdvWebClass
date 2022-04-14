@@ -1,46 +1,43 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { Login } from "../models/session"
-
-
-const handle = ref('')
-const password = ref('')
 </script>
 
 <template>
-    <div class="section">
+    <div class="sec">
         <div class="wrap">
-            <form class="login-form form" @submit.prevent="Login(handle, password)">
+            <form class="register-form form">
                 <div class="form-header">
-                    <h3>Login</h3>
+                    <h3>Register</h3>
                 </div>
                 <div class="form-group">
-                    <input
-                        type="text"
-                        class="form-input"
-                        placeholder="Handle"
-                        required
-                        v-model="handle"
-                    />
+                    <input type="text" class="form-input" placeholder="First Name" required />
+                    <input type="text" class="form-input ml" placeholder="Last Name" required />
                 </div>
                 <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Email" required />
+                </div>
+                <div class="form-group">
+                    <span class="form-label">How did you find us?</span>
+                    <span class="form-label">Date of Birth</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Social Media" required />
+                    <input type="date" class="form-input ml" required />
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-input" placeholder="New Password" required />
                     <input
                         type="password"
-                        class="form-input"
-                        placeholder="Password"
+                        class="form-input ml"
+                        placeholder="Confirm Password"
                         required
-                        v-model="password"
                     />
                 </div>
                 <div class="form-group">
-                    <a href="#" class="form-forgot">Forgot Password?</a>
-                </div>
-                <div class="form-group">
-                    <button class="form-button" type="submit">Login</button>
+                    <button class="form-button" type="submit">Register</button>
                 </div>
                 <div class="form-footer">
-                    Don't have an account?
-                    <a href="/register.html">Sign Up</a>
+                    Have an account?
+                    <a href="/login.html">Sign In</a>
                 </div>
             </form>
         </div>
@@ -54,6 +51,7 @@ const password = ref('')
     display: flex;
     justify-content: center;
     align-items: center;
+    background: #fcfbfb;
 }
 
 .form {
@@ -123,8 +121,7 @@ const password = ref('')
     justify-content: center;
     width: 100%;
 }
-
-.login-form {
-    width: 22em;
+.register-form {
+    width: 32em;
 }
 </style>
