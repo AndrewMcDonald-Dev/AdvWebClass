@@ -6,19 +6,33 @@ const { StatusCodes } = require("http-status-codes");
 app.get("/", (req, res, next) => {
     postModel
         .getList()
-        .then((posts) => res.json(posts))
+        .then((posts) => res.json({ success: true, errors: [], data: posts }))
         .catch(next);
 })
     .get("/:id", (req, res, next) => {
         postModel
             .get(req.params.id)
-            .then((post) => res.json(post))
+            .then((post) =>
+                res.json({ success: true, errors: [], data: posts })
+            )
+            .catch(next);
+    })
+    .get("/wall/:handle", (req, res, next) => {
+        postModel
+            .getWall(req.params.handle)
+            .then((posts) =>
+                res.json({ success: true, errors: [], data: posts })
+            )
             .catch(next);
     })
     .post("/", (req, res, next) => {
         postModel
             .create(req.body)
-            .then((post) => res.status(StatusCodes.CREATED).json(post))
+            .then((post) =>
+                res
+                    .status(StatusCodes.CREATED)
+                    .json({ success: true, errors: [], data: post })
+            )
             .catch(next);
     })
     .delete("/:id", (req, res, next) => {
@@ -35,6 +49,16 @@ app.get("/", (req, res, next) => {
         postModel
             .update(req.params.id, req.body)
             .then((post) => res.json({ success: true, errors: [], data: post }))
+            .catch(next);
+    })
+    .post("/seed", (req, res, next) => {
+        postModel
+            .seed()
+            .then((post) =>
+                res
+                    .status(CREATED_STATUS)
+                    .json({ success: true, errors: [], data: post })
+            )
             .catch(next);
     });
 

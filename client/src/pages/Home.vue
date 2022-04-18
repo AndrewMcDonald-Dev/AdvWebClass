@@ -1,11 +1,13 @@
 <script setup lang="ts">
+
 </script>
 
 <template>
-    <div class="container">
-        <h1 class="title">Praying for Ukraine</h1>
+    <div class="section">
+        <h1 class="title">Home Page</h1>
     </div>
 </template>
 
-<style>
+<style scoped>
+
 </style>

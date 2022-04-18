@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps } from "vue";
 
-const props = defineProps({
-    title: {
-        type: String,
-        defualt: "Hello World"
-    }
-})
+    const props = defineProps({
+        title: {
+            type: String,
+            default: "Hello World"
+        },
+    });
 </script>
 
 <template>
@@ -15,5 +15,7 @@ const props = defineProps({
     </div>
 </template>
 
-<style>
+
+<style scoped>
+
 </style>

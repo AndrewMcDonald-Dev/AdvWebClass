@@ -67,6 +67,14 @@ const update = async (id, newPost) => {
     return await includeUser(newPost);
 };
 
+const getWall = async (handle) => {
+    const posts = await collection.find({ owner: handle }).toArray();
+
+    return Promise.all(posts.map((x) => includeUser(x)));
+};
+
+const seed = () => collection.insertMany(list);
+
 module.exports = {
     async create(post) {
         const result = await postCollection.insertOne(post);
@@ -76,6 +84,7 @@ module.exports = {
     remove,
     update,
     postCollection,
+    getWall,
     async getList() {
         const posts = await postCollection.find().toArray();
         return Promise.all(posts.map((post) => includeUser(post)));

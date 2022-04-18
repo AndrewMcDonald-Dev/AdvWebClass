@@ -1,27 +1,13 @@
 .navbar {
-    .is-active {
-        border-bottom: 0.3em solid rgb(17, 8, 138);
-    }
+
+ .is-active {
+    border-color: #2e0563;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+  }
 }
 
-html,
-body {
-    background: #fcfbfb;
-    height: 100%;
-}
-
-.mini-avatar {
-    display: flex;
-    flex-direction: row;
-    margin-right: 0em;
-    padding-right: 1em;
-
-    figure,
-    p {
-        margin: 0.3em;
-    }
-
-    p {
-        margin-top: 0.7em;
-    }
+.section {
+    padding-left: 0;
+    padding-right: 0;
 }

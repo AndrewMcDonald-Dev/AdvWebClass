@@ -1,24 +1,47 @@
 import { reactive } from "vue";
-import { router } from "../router/index";
-import { list, User } from "./user";
+import router from "../router";
+
+import * as users from "../models/user";
+import { useMessages } from "./messages";
+
 
 const session = reactive({
-    user: null as User | null,
-});
+    user: null as users.User | null,
+    destinationUrl: null as string | null,
+})
 
-export const Login = async (handle: string, password: string) => {
-    const user = list.find((u: User) => u.handle === handle);
+export async function Login(handle: string, password: string) {
+    const user = users.list.find(u => u.handle === handle);
+    const messages = useMessages();
 
-    if (!user) throw new Error("User not found");
-    if (user.password !== password) throw new Error("Incorrect Password");
+    try {
+        if (!user) {
+            throw { message: "User not found" };
+        }
+        if(user.password !== password) {
+            throw { message: "Incorrect password" };
+        } 
 
-    session.user = user;
-    router.push("/wall");
-};
+        messages.notifications.push({
+            type: "success",
+            message: `Welcome back ${user.firstName}!`,
+        });
 
-export const Logout = () => {
+        session.user = user;
+        router.push(session.destinationUrl  ?? '/wall');
+
+    } catch (error: any) {
+        messages.notifications.push({
+            type: "danger",
+            message: error.message,
+        });
+        console.table(messages.notifications)
+    }
+}
+
+export function Logout() {
     session.user = null;
-    router.push("/");
-};
-
+    router.push('/login');
+}
+    
 export default session;

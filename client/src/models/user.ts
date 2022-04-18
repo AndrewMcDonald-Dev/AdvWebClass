@@ -1,3 +1,6 @@
+/* B"H
+*/
+
 export interface User {
     firstName: string;
     lastName: string;
@@ -10,36 +13,31 @@ export interface User {
 
 export const list: User[] = [
     {
-        firstName: "Andrew",
-        lastName: "McDonald",
-        email: "simple@email.com",
-        handle: "cool",
+        firstName: 'John',
+        lastName: 'Doe',
+        handle: 'johndoe',
+        password: 'password',
+        email: 'jhon@doe.com',
+        pic: 'https://randomuser.me/api/portraits/men/1.jpg',
         id: 1,
-        password: "qwerty",
-        pic: "https://randomuser.me/portraits/men/1.jpg",
     },
     {
-        firstName: "Koolaid",
-        lastName: "Guy",
-        email: "ohyeag@email.com",
-        handle: "kool",
+        firstName: 'Vladimir',
+        lastName: 'Putin',
+        handle: 'russian_dictator',
+        password: 'long table',
+        email: 'jhon@doe.com',
+        pic: 'https://randomuser.me/api/portraits/men/2.jpg',
         id: 2,
-        password: "qwerty",
-        pic: "https://randomuser.me/portraits/men/2.jpg",
     },
     {
-        firstName: "Type",
-        lastName: "Script",
-        email: "is@email.com",
-        handle: "awesome",
+        firstName: 'Kamala',
+        lastName: 'Harris',
+        handle: 'vp',
+        password: 'password',
+        email: 'kamala@whitehouse.org',
+        pic: 'https://randomuser.me/api/portraits/women/3.jpg',
         id: 3,
-        password: "qwerty",
-        pic: "https://randomuser.me/portraits/women/2.jpg",
     },
 ];
 
-export const findUser = (id: number): User => {
-    const user = list.find((user) => user.id === id);
-    if (!user) throw new Error("failed to find user in findUser");
-    return user;
-};
