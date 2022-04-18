@@ -1,47 +1,62 @@
-import { reactive } from "vue";
-import router from "../router";
-
+import { defineStore } from "pinia";
 import * as users from "../models/user";
+import router from "../router";
 import { useMessages } from "./messages";
+import { api } from "./myFetch";
 
+export const useSession = defineStore("session", {
+    state: () => ({
+        user: null as users.User | null,
+        destinationUrl: null as string | null,
+    }),
+    actions: {
+        async Login(email: string, password: string) {
+            const messages = useMessages();
 
-const session = reactive({
-    user: null as users.User | null,
-    destinationUrl: null as string | null,
-})
+            try {
+                const user = await this.api("users/login", { email, password });
+                if (user) {
+                    messages.notifications.push({
+                        type: "success",
+                        message: `Welcome back ${user.firstName}!`,
+                    });
 
-export async function Login(handle: string, password: string) {
-    const user = users.list.find(u => u.handle === handle);
-    const messages = useMessages();
+                    this.user = user;
+                    router.push(this.destinationUrl ?? "/wall");
+                }
+            } catch (error: any) {
+                messages.notifications.push({
+                    type: "danger",
+                    message: error.message,
+                });
+                console.table(messages.notifications);
+            }
+        },
 
-    try {
-        if (!user) {
-            throw { message: "User not found" };
-        }
-        if(user.password !== password) {
-            throw { message: "Incorrect password" };
-        } 
+        Logout() {
+            this.user = null;
+            router.push("/login");
+        },
 
-        messages.notifications.push({
-            type: "success",
-            message: `Welcome back ${user.firstName}!`,
-        });
+        async api(
+            url: string,
+            body?: any,
+            method?: "GET" | "POST" | "PUT" | "DELETE",
+            headers?: HeadersInit
+        ) {
+            const messages = useMessages();
+            try {
+                const response = await api(url, body, method, headers);
+                if (response.errors?.length)
+                    throw { message: response.errors.join("") };
 
-        session.user = user;
-        router.push(session.destinationUrl  ?? '/wall');
-
-    } catch (error: any) {
-        messages.notifications.push({
-            type: "danger",
-            message: error.message,
-        });
-        console.table(messages.notifications)
-    }
-}
-
-export function Logout() {
-    session.user = null;
-    router.push('/login');
-}
-    
-export default session;
+                return await response.data;
+            } catch (error: any) {
+                messages.notifications.push({
+                    type: "danger",
+                    message: error.message,
+                });
+            }
+        },
+    },
+});

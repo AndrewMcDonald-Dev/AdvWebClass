@@ -1,7 +1,7 @@
 /* B"H
  */
 
-const API_URL = "http://localhost:3001/api/";
+const API_URL = "http://localhost:3004/api/";
 
 export const api = (
     url: string,
@@ -20,6 +20,10 @@ export const api = (
     if (body) {
         options = {
             method: method || "POST",
+            headers: headers || {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
             cache: "no-cache",
             body: JSON.stringify(body),
         };

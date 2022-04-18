@@ -93,7 +93,18 @@ const fromToken = async (token) =>
         });
     });
 
-const seed = async () => await collection.insertMany(list);
+const seed = async () => {
+    const newList = Promise.all(
+        list.map(async (user) => ({
+            ...user,
+            password: await bcrypt.hash(
+                user.password,
+                +process.env.SALT_ROUNDS
+            ),
+        }))
+    );
+    await collection.insertMany(newList);
+};
 
 module.exports = {
     async create(user) {

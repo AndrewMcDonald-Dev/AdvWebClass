@@ -1,9 +1,11 @@
 <script setup lang="ts">
-    import session, { Logout } from "../models/session";
+import { useSession } from "../models/session";
+
+const { user, Logout } = useSession();
 </script>
 
 <template>
-    <div class="buttons" v-if="!session.user">
+    <div class="buttons" v-if="!user">
         <router-link class="button is-primary" to="/signup">
             <strong>Sign up</strong>
         </router-link>
@@ -13,10 +15,10 @@
     </div>
     <div class="buttons" v-else>
         <div class="avatar">
-            <img :src="session.user.pic" />
+            <img :src="user.pic" />
             <div>
-                <strong>{{ session.user.firstName }} {{ session.user.lastName }}</strong> <br />
-                <i>{{ session.user.email }}</i>
+                <strong>{{ user.firstName }} {{ user.lastName }}</strong> <br />
+                <i>{{ user.email }}</i>
             </div>
         </div>
         <a class="button is-primary" @click="Logout()">
@@ -26,21 +28,21 @@
 </template>
 
 <style scoped lang="scss">
-    .avatar {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: .5em;
-        gap: .5em;
-        line-height: 1em;
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: .5em;
+    gap: .5em;
+    line-height: 1em;
 
-        img {
-            width: 48px;
-            height: 48px;
-            max-height: max-content;
-            border-radius: 10%;
-            overflow: hidden;
-            object-fit: cover;
-        }
+    img {
+        width: 48px;
+        height: 48px;
+        max-height: max-content;
+        border-radius: 10%;
+        overflow: hidden;
+        object-fit: cover;
     }
+}
 </style>
