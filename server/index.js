@@ -37,7 +37,7 @@ app.use("/", express.static(__dirname + "/public/"))
         res.send("Hello world!");
     })
     .use("/api/users", usersController)
-    .use("/api/posts/", requireAuth, postsController)
+    .use("/api/posts/", /* requireAuth ,*/ postsController)
     .use((err, req, res, next) => {
         console.error(err);
         switch (err.code) {
