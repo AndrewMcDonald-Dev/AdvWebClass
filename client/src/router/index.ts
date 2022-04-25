@@ -34,19 +34,14 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
     const session = useSession();
-    if (session.destinationUrl == null && to.path != "/login") {
+    if (session.destinationUrl == null && to.path != "/login")
         session.destinationUrl = to.path;
-    }
-    console.log({ to });
-    const protectedUrls = ["/messages", "/wall", "/feed", "/hidden"];
-    console.log({ protectedUrls });
 
-    if (protectedUrls.includes(to.path)) {
+    const protectedUrls = ["/messages", "/wall", "/feed", "/hidden"];
+
+    if (protectedUrls.includes(to.path.toLowerCase())) {
         // list of paths that require login
-        console.log("requires login");
-        if (!session.user) {
-            return "/login";
-        }
+        if (!session.user) return "/login";
     }
 });
 

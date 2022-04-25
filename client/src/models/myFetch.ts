@@ -11,18 +11,16 @@ export const api = (
 ) => {
     let options: RequestInit = {
         method: method || "GET",
-        headers: headers || {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-        },
+        headers,
     };
 
     if (body) {
         options = {
             method: method || "POST",
-            headers: headers || {
+            headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
+                ...options.headers,
             },
             cache: "no-cache",
             body: JSON.stringify(body),

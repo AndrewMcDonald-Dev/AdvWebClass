@@ -73,7 +73,13 @@ const login = async (email, password) => {
     if (!user)
         throw { stausCode: StatusCodes.NOT_FOUND, message: "User not found" };
 
-    if (!(await bcrypt.compare(password, user.password)))
+    //! uncomment when db passwords are bcrypted
+    // if (!(await bcrypt.compare(password, user.password)))
+    //     throw {
+    //         statusCode: StatusCodes.UNAUTHORIZED,
+    //         message: "Invalid password",
+    //     };
+    if (password !== user.password)
         throw {
             statusCode: StatusCodes.UNAUTHORIZED,
             message: "Invalid password",

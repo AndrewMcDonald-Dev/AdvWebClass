@@ -42,11 +42,16 @@ export const useSession = defineStore("session", {
             url: string,
             body?: any,
             method?: "GET" | "POST" | "PUT" | "DELETE",
-            headers?: HeadersInit
+            headers: any = {}
         ) {
             const messages = useMessages();
+
+            if (this.user?.token)
+                headers.Authorization = `Bearer ${this.user.token}`;
+
             try {
                 const response = await api(url, body, method, headers);
+
                 if (response.errors?.length)
                     throw { message: response.errors.join("") };
 

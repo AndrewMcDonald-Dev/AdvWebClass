@@ -19,7 +19,7 @@ app.get("/", requireAuth, (req, res, next) => {
 })
     .get("/handle/:handle", (req, res, next) => {
         userModel
-            .getByHandle(req.params.handle)
+            .getByHandle(req.user.handle)
             .then((user) => {
                 res.status(StatusCodes.OK).send({
                     success: true,
