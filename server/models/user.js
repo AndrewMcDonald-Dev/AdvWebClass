@@ -100,7 +100,7 @@ const fromToken = async (token) =>
     });
 
 const seed = async () => {
-    const newList = Promise.all(
+    const newList = await Promise.all(
         list.map(async (user) => ({
             ...user,
             password: await bcrypt.hash(
@@ -109,7 +109,7 @@ const seed = async () => {
             ),
         }))
     );
-    await collection.insertMany(newList);
+    return collection.insertMany(newList);
 };
 
 module.exports = {
